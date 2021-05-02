@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+const Left = () => {
+  return <>This is the left pane</>;
+};
 
-function App() {
+const Right = () => {
+  return <>This is the right pane</>;
+};
+const Child = ({ children, chExtra, left, right, title, message }) => {
+  return (
+    <>
+      {title}
+      {children}
+      <hr />
+      {chExtra.map((x) => (
+        <p key={x}>{x}</p>
+      ))}
+      <div style={{ float: "left" }}>{left}</div>
+      <div style={{ float: "right" }}>{right}</div>
+    </>
+  );
+};
+
+export default function App({ extra }) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Child
+        chExtra={extra}
+        left={<Left />}
+        right={<Right />}
+        title="Header title"
+        message="This is the message from parent"
+      >
+        <h2>Child Header</h2>
+        <div>Inside child</div>
+        {extra.map((x) => (
+          <p key={x}>{x}</p>
+        ))}
+      </Child>
     </div>
   );
 }
 
-export default App;
